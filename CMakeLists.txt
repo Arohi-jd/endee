@@ -38,10 +38,18 @@ if (NOT CLANG_VERSION_MAJOR)
     )
 endif()
 
-if (CLANG_VERSION_MAJOR LESS 17)
-    message(FATAL_ERROR
-        "Clang ${CLANG_VERSION_MAJOR} detected, but clang >= 17 is required "
-    )
+if(APPLE)
+    if (CLANG_VERSION_MAJOR LESS 16)
+        message(FATAL_ERROR
+            "Clang ${CLANG_VERSION_MAJOR} detected, but clang >= 16 is required on macOS"
+        )
+    endif()
+else()
+    if (CLANG_VERSION_MAJOR LESS 17)
+        message(FATAL_ERROR
+            "Clang ${CLANG_VERSION_MAJOR} detected, but clang >= 17 is required "
+        )
+    endif()
 endif()
 
 # Lock compilers

@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>StyleMatch AI UI</title>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --card: #141d31;
+      --muted: #8fa2c5;
+      --text: #e8eefb;
+      --primary: #6d8cff;
+      --primary-2: #4f6ef0;
+      --danger: #ff6b6b;
+      --border: #243253;
+    }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background: linear-gradient(160deg, #0b1220 0%, #0f172a 100%);
+      color: var(--text);
+    }
+    .wrap {
+      max-width: 1000px;
+      margin: 28px auto;
+      padding: 0 16px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+    h1 {
+      margin: 0 0 6px;
+      font-size: 1.5rem;
+    }
+    p {
+      margin: 0 0 14px;
+      color: var(--muted);
+    }
+    .grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .full {
+      grid-column: 1 / -1;
+    }
+    label {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+      color: #c5d2ef;
+    }
+    input, select, textarea, button {
+      width: 100%;
+      box-sizing: border-box;
+      border-radius: 10px;
+      border: 1px solid #334873;
+      background: #0f1a33;
+      color: var(--text);
+      padding: 10px 12px;
+      font-size: 0.95rem;
+    }
+    textarea { min-height: 90px; resize: vertical; }
+    button {
+      border: 0;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .hint { font-size: 0.84rem; color: var(--muted); margin-top: 5px; }
+    .guide {
+      margin: 10px 0 16px;
+      border: 1px solid #314776;
+      background: #101b35;
+      border-radius: 12px;
+      padding: 12px;
+    }
+    .guide h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      color: #d8e5ff;
+    }
+    .guide ol {
+      margin: 0;
+      padding-left: 18px;
+      color: #c0d0f3;
+      line-height: 1.5;
+      font-size: 0.92rem;
+    }
+    .guide li { margin-bottom: 6px; }
+    .code-chip {
+      display: inline-block;
+      border: 1px solid #4365a9;
+      border-radius: 7px;
+      padding: 1px 6px;
+      font-size: 0.8rem;
+      color: #cfe0ff;
+      margin-right: 4px;
+      margin-top: 4px;
+    }
+    .error {
+      margin-top: 14px;
+      border: 1px solid #7f1d1d;
+      background: rgba(127, 29, 29, 0.25);
+      color: #fecaca;
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+    .info {
+      margin-top: 14px;
+      border: 1px solid #2c436f;
+      background: #0f1c37;
+      color: #dce8ff;
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+    .result-header {
+      margin-top: 14px;
+      border: 1px solid #2c436f;
+      background: #0f1c37;
+      color: #dce8ff;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 0.92rem;
+    }
+    .hidden { display: none; }
+    table {
+      width: 100%;
+      margin-top: 16px;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+    th, td {
+      border-bottom: 1px solid #253250;
+      padding: 10px;
+      text-align: left;
+      font-size: 0.92rem;
+    }
+    th { color: #c2d1ef; background: #16233d; }
+    .pill {
+      display: inline-block;
+      font-size: 0.78rem;
+      border-radius: 999px;
+      border: 1px solid #38558b;
+      padding: 2px 8px;
+      color: #b9ccf3;
+    }
+    @media (max-width: 760px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>StyleMatch AI</h1>
+      <p>Upgrade your fashion</p>
+
+      <div class="guide">
+        <h3>How to fill this form (quick steps)</h3>
+        <ol>
+          <li><strong>Pick search mode:</strong> use <strong>Item-based outfit</strong> for “I have this item, what can I wear with it?”.</li>
+          <li><strong>If using Text query:</strong> type something like “formal office outfit in navy”.</li>
+          <li><strong>If using Item-based:</strong> choose an item from the dropdown (recommended). No need to know IDs.</li>
+          <li><strong>Set Top K:</strong> how many results to return. Start with <strong>5</strong> or <strong>6</strong>.</li>
+          <li><strong>Optional filters:</strong> style, occasion, clothing types to narrow results.</li>
+        </ol>
+        <div class="hint" style="margin-top:8px;">Common values:</div>
+        <span class="code-chip">style: formal</span>
+        <span class="code-chip">style: minimal</span>
+        <span class="code-chip">occasion: office</span>
+        <span class="code-chip">occasion: weekend</span>
+        <span class="code-chip">types: top,bottom,shoes</span>
+      </div>
+
+      <form method="post">
+        <div class="grid">
+          <div>
+            <label for="mode">Search mode</label>
+            <select id="mode" name="mode">
+              <option value="text" {% if form.mode == 'text' %}selected{% endif %}>Text query</option>
+              <option value="item" {% if form.mode == 'item' %}selected{% endif %}>Item-based outfit</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="k">Top K (1-20)</label>
+            <input id="k" name="k" type="number" min="1" max="20" value="{{ form.k }}" />
+          </div>
+
+          <div class="full" id="textQueryBlock">
+            <label for="query">Text query (for text mode)</label>
+            <textarea id="query" name="query" placeholder="Example: formal office look in navy with clean minimal vibe">{{ form.query }}</textarea>
+          </div>
+
+          <div id="itemPickBlock">
+            <label for="item_pick">Pick item from catalog (recommended)</label>
+            <select id="item_pick" name="item_pick">
+              <option value="">Select an item...</option>
+              {% for item in item_options %}
+              <option value="{{ item.id }}" {% if form.item_pick == item.id or form.item_id == item.id %}selected{% endif %}>
+                {{ item.id }} — {{ item.name }} ({{ item.type }}, {{ item.style }})
+              </option>
+              {% endfor %}
+            </select>
+            <div class="hint">For item mode, this is easier than typing numbers manually.</div>
+          </div>
+
+          <div id="itemIdBlock" class="hidden">
+            <label for="item_id">Item ID (advanced)</label>
+            <input id="item_id" name="item_id" type="text" value="{{ form.item_id }}" placeholder="Example: 2" />
+            <div class="hint">Advanced only. Dropdown above is recommended.</div>
+          </div>
+
+          <div>
+            <label for="style">Style filter (optional)</label>
+            <input id="style" name="style" type="text" value="{{ form.style }}" placeholder="formal, minimal, smart_casual" />
+          </div>
+
+          <div>
+            <label for="occasion">Occasion filter (optional)</label>
+            <input id="occasion" name="occasion" type="text" value="{{ form.occasion }}" placeholder="office, date_night, weekend" />
+          </div>
+
+          <div id="clothingTypesBlock">
+            <label for="clothing_types">Clothing types (optional, comma separated)</label>
+            <input id="clothing_types" name="clothing_types" type="text" value="{{ form.clothing_types }}" placeholder="top,bottom,shoes" />
+            <div class="hint">Used in Text query mode only.</div>
+          </div>
+
+          <div class="full">
+            <button type="submit">Get Recommendations</button>
+          </div>
+        </div>
+      </form>
+
+      {% if error %}
+      <div class="error">{{ error }}</div>
+      {% endif %}
+
+      {% if info_message %}
+      <div class="info">{{ info_message }}</div>
+      {% endif %}
+
+      {% if results %}
+      {% if selected_item_summary %}
+      <div class="result-header">{{ selected_item_summary }}</div>
+      {% endif %}
+      <div class="hint" style="margin-top:14px;">Score meaning: lower distance usually means better match for this index setup.</div>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Score</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Style</th>
+            <th>Color</th>
+            <th>Occasion</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in results %}
+          <tr>
+            <td>{{ row.id }}</td>
+            <td>{{ '%.4f'|format(row.score) }}</td>
+            <td>{{ row.name }}</td>
+            <td>{{ row.type }}</td>
+            <td>{{ row.style }}</td>
+            <td>{{ row.color }}</td>
+            <td>{{ row.occasion }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
+    </div>
+  </div>
+  <script>
+    const modeSelect = document.getElementById("mode");
+    const textQueryBlock = document.getElementById("textQueryBlock");
+    const itemPickBlock = document.getElementById("itemPickBlock");
+    const itemIdBlock = document.getElementById("itemIdBlock");
+    const clothingTypesBlock = document.getElementById("clothingTypesBlock");
+
+    function refreshModeUI() {
+      const mode = modeSelect.value;
+      const isItem = mode === "item";
+
+      textQueryBlock.classList.toggle("hidden", isItem);
+      itemPickBlock.classList.toggle("hidden", !isItem);
+      itemIdBlock.classList.toggle("hidden", !isItem);
+      clothingTypesBlock.classList.toggle("hidden", isItem);
+    }
+
+    modeSelect.addEventListener("change", refreshModeUI);
+    refreshModeUI();
+  </script>
+</body>
+</html>

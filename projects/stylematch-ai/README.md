@@ -1,12 +1,18 @@
 # StyleMatch AI — Outfit Recommendation with Endee Vector Search
 
-StyleMatch AI is an AI/ML recommendation project that suggests matching clothing combinations using embedding similarity and metadata-aware retrieval.
+## 0) Run the Project (Start Here)
 
-It uses **Endee** as the vector database for:
+Follow these steps in order:
 
-- storing product embeddings,
-- fast nearest-neighbor search,
-- filter-aware retrieval (style, color, occasion, clothing type, user preference constraints).
+1. Start Endee server on `http://localhost:8080`.
+1. Go to this project folder: `cd projects/stylematch-ai`
+1. Create and activate environment: `python -m venv .venv` and `source .venv/bin/activate`
+1. Install dependencies: `pip install -r requirements.txt`
+1. Build index + ingest catalog: `python -m app.bootstrap_index`
+1. Start UI: `python -m app.web`
+1. Open browser: [http://localhost:5000](http://localhost:5000)
+
+If port `5000` is busy, app auto-selects the next free port.
 
 ---
 
@@ -26,7 +32,29 @@ The result is a recommendation flow that is both flexible and explainable.
 
 ---
 
-## 2) Practical Use Case
+## 2) UI Photos (Add Screenshots Here)
+
+Add your UI images in this section before submission.
+
+Suggested screenshots:
+
+- Home screen (form view)
+- Item-based recommendation results
+- Text query recommendation results
+
+---
+
+StyleMatch AI is an AI/ML recommendation project that suggests matching clothing combinations using embedding similarity and metadata-aware retrieval.
+
+It uses **Endee** as the vector database for:
+
+- storing product embeddings,
+- fast nearest-neighbor search,
+- filter-aware retrieval (style, color, occasion, clothing type, user preference constraints).
+
+---
+
+## 3) Practical Use Case
 
 This is a **recommendation system** where vector search is the core retrieval primitive.
 
@@ -39,9 +67,9 @@ Given one item (for example a blazer), the system:
 
 ---
 
-## 3) System Design and Technical Approach
+## 4) System Design and Technical Approach
 
-### 3.1 Architecture
+### 4.1 Architecture
 
 1. **Catalog Loader**
    - Reads the fashion dataset from [data/catalog.csv](data/catalog.csv).
@@ -56,7 +84,7 @@ Given one item (for example a blazer), the system:
    - Decodes MessagePack results.
    - Prints ranked recommendations.
 
-### 3.2 Retrieval Logic
+### 4.2 Retrieval Logic
 
 - Dense vector similarity captures semantic closeness.
 - Metadata filters enforce practical constraints:
@@ -64,7 +92,7 @@ Given one item (for example a blazer), the system:
   - `occasion` equality,
   - optional style overrides.
 
-### 3.3 Why this is AI/ML
+### 4.3 Why this is AI/ML
 
 - Uses a pretrained transformer embedding model.
 - Converts structured fashion attributes into semantic vector space.
@@ -72,7 +100,7 @@ Given one item (for example a blazer), the system:
 
 ---
 
-## 4) How Endee is Used
+## 5) How Endee is Used
 
 Endee is used as the primary retrieval engine through these APIs:
 
@@ -89,7 +117,7 @@ In this project:
 
 ---
 
-## 5) Mandatory Repository Usage Steps (Evaluation Compliance)
+## 6) Mandatory Repository Usage Steps (Evaluation Compliance)
 
 Before starting your own submission, complete these required steps:
 
@@ -102,15 +130,15 @@ Before starting your own submission, complete these required steps:
 
 ---
 
-## 6) Setup and Execution
+## 7) Setup and Execution
 
-### 6.1 Prerequisites
+### 7.1 Prerequisites
 
 - Python 3.10+
 - Endee server running on `http://localhost:8080`
   - See root docs: [docs/getting-started.md](../../docs/getting-started.md)
 
-### 6.2 Project Setup
+### 7.2 Project Setup
 
 From the project directory:
 
@@ -123,7 +151,7 @@ From the project directory:
    - `cp .env.example .env`
    - set `ENDEE_BASE_URL`, `ENDEE_AUTH_TOKEN` (if enabled)
 
-### 6.3 Build Index + Insert Data
+### 7.3 Build Index + Insert Data
 
 - `python -m app.bootstrap_index`
 
@@ -134,14 +162,14 @@ This will:
 - create Endee index,
 - insert vectors with metadata/filter payload.
 
-### 6.4 Run Recommendation Query
+### 7.4 Run Recommendation Query
 
 - From the repo root, move into the project folder:
-   - `cd projects`
-   - `cd stylematch-ai`
+  - `cd projects`
+  - `cd stylematch-ai`
 
 - Run recommendation query:
-   - `python -m app.recommend --item-id 2 --k 5`
+  - `python -m app.recommend --item-id 2 --k 5`
 
 - Expected outcome:
 
@@ -159,9 +187,35 @@ Recommended matches:
 - Optional preference override:
   - `python -m app.recommend --item-id 2 --style formal --occasion office --k 5`
 
+### 7.5 Run Flask UI (Type input and get recommendations)
+
+After indexing data once (`python -m app.bootstrap_index`), start the web UI:
+
+- `python -m app.web`
+
+Open in browser:
+
+- [http://localhost:5000](http://localhost:5000)
+
+If `5000` is already in use, the app auto-selects the next free port (`5001`, `5002`, ...).
+You can also force a port:
+
+- `STYLEMATCH_UI_PORT=5050 python -m app.web`
+
+UI supports two modes:
+
+- **Text query**: type natural language like “formal office outfit in navy”.
+- **Item-based outfit**: select an item from the catalog dropdown (or use item id, e.g. `2`) to get compatibility-aware matches.
+
+Optional UI filters:
+
+- `style`
+- `occasion`
+- `clothing_types` (comma-separated)
+
 ---
 
-## 7) Repository Structure
+## 8) Repository Structure
 
 - [app/bootstrap_index.py](app/bootstrap_index.py): index creation + ingestion pipeline
 - [app/recommend.py](app/recommend.py): query and recommendation logic
@@ -172,7 +226,7 @@ Recommended matches:
 
 ---
 
-## 8) Suggested GitHub Hosting Checklist
+## 9) Suggested GitHub Hosting Checklist
 
 When publishing your final project repo:
 
@@ -184,7 +238,7 @@ When publishing your final project repo:
 
 ---
 
-## 9) Future Enhancements
+## 10) Future Enhancements
 
 - Add user history and feedback loops for personalized reranking.
 - Hybrid dense + sparse retrieval.

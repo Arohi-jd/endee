@@ -30,3 +30,10 @@ frontend/*
 
 # DS Store
 .DS_Store
+
+# Endee runtime/generated data
+endee-data/
+
+# Python cache files (stylematch project)
+__pycache__/
+*.pyc

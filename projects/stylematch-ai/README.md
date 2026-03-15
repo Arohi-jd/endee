@@ -32,15 +32,19 @@ The result is a recommendation flow that is both flexible and explainable.
 
 ---
 
-## 2) UI Photos (Add Screenshots Here)
+## 2) UI Photos
 
-Add your UI images in this section before submission.
+### Home Screen (Form View)
 
-Suggested screenshots:
+![Home screen](https://github.com/user-attachments/assets/769dccc8-58dd-4fea-a2cc-cb6cf2d9f921)
 
-- Home screen (form view)
-- Item-based recommendation results
-- Text query recommendation results
+### Item-Based Recommendation Results
+
+![Item-based recommendation results](https://github.com/user-attachments/assets/0ec5f88c-48b3-4ac5-88d5-a8ca5ba7c392)
+
+### Text Query Recommendation Results
+
+![Text query recommendation results](https://github.com/user-attachments/assets/0353bdb1-ac9d-446e-a876-326b0aa9e547)
 
 ---
 
